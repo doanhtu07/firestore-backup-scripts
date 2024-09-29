@@ -2,6 +2,8 @@
 
 Together with using managed backup, we can export and import data from Firestore manually.
 
+NOTE: All the scripts should be compiled with `tsc` first
+
 ## Sources
 
 - https://firebase.google.com/docs/firestore/manage-data/export-import
@@ -27,7 +29,7 @@ gcloud firestore export gs://[BUCKET_NAME] \
 
 ### Script
 
-Run `export-all.js` script to export all collections
+Run `/dist/export-all.js` script to export all collections
 
 - You can adjust collections in there to export only certain collections.
 
@@ -45,4 +47,10 @@ gcloud firestore import gs://[BUCKET_NAME]/[EXPORT_PREFIX]/ --database=[DATABASE
 
 ### Script
 
-Run `import-all.js` script to import all collections
+Run `/dist/import-all.js` script to import all collections
+
+## Read collection into csv file
+
+### Script
+
+Run `/dist/read-collection/read-collection-into-csv.js` script to read collection into csv file

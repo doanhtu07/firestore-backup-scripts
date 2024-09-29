@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ES6", // Specify ECMAScript target version
+    "module": "commonjs", // Specify module code generation
+    "strict": true, // Enable strict type-checking options
+    "esModuleInterop": true, // Enables ES6 imports/export interop
+    "skipLibCheck": true, // Skip type checking of all declaration files
+    "forceConsistentCasingInFileNames": true // Ensure file name casing consistency
+  },
+  "include": ["src"], // Include all .ts files in the 'src' folder
+  "exclude": ["node_modules"] // Exclude the node_modules folder
+}

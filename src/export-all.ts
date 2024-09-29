@@ -1,18 +1,44 @@
-const admin = require("firebase-admin");
-const initializeApi = require("./init-admin");
+import admin from "firebase-admin";
+import initializeApi from "./init-admin";
+
+if (
+  !process.env.SERVICE_ACCOUNT_PROJECT_ID ||
+  !process.env.SERVICE_ACCOUNT_CLIENT_EMAIL ||
+  !process.env.SERVICE_ACCOUNT_PRIVATE_KEY
+) {
+  throw new Error(
+    "Missing service account credentials. Set environment variables in .env file."
+  );
+}
+
+const {
+  SERVICE_ACCOUNT_PROJECT_ID,
+  SERVICE_ACCOUNT_CLIENT_EMAIL,
+  SERVICE_ACCOUNT_PRIVATE_KEY,
+} = process.env;
 
 initializeApi();
 
 const client = new admin.firestore.v1.FirestoreAdminClient({
-  projectId: process.env.SERVICE_ACCOUNT_PROJECT_ID,
+  projectId: SERVICE_ACCOUNT_PROJECT_ID,
   credentials: {
-    client_email: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
-    private_key: process.env.SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    client_email: SERVICE_ACCOUNT_CLIENT_EMAIL,
+    private_key: SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, "\n"),
   },
 });
 
 async function exportFirestoreData() {
-  const projectId = process.env.SERVICE_ACCOUNT_PROJECT_ID;
+  if (
+    !SERVICE_ACCOUNT_PROJECT_ID ||
+    !SERVICE_ACCOUNT_CLIENT_EMAIL ||
+    !SERVICE_ACCOUNT_PRIVATE_KEY
+  ) {
+    throw new Error(
+      "Missing service account credentials. Set environment variables in .env file."
+    );
+  }
+
+  const projectId = SERVICE_ACCOUNT_PROJECT_ID;
   const databaseName = client.databasePath(projectId, "(default)");
 
   const baseBucketName = "gs://hackutd-2024-prod-firestore-backup";

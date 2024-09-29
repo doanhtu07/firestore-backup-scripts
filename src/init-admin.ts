@@ -1,7 +1,26 @@
-const admin = require("firebase-admin");
-const dotenv = require("dotenv");
+import admin from "firebase-admin";
+import dotenv from "dotenv";
+import * as path from "path";
 
-dotenv.config();
+dotenv.config({
+  path: path.resolve(__dirname, "../.env"),
+});
+
+if (
+  !process.env.SERVICE_ACCOUNT_PROJECT_ID ||
+  !process.env.SERVICE_ACCOUNT_CLIENT_EMAIL ||
+  !process.env.SERVICE_ACCOUNT_PRIVATE_KEY
+) {
+  throw new Error(
+    "Missing service account credentials. Set environment variables in .env file."
+  );
+}
+
+const {
+  SERVICE_ACCOUNT_PROJECT_ID,
+  SERVICE_ACCOUNT_CLIENT_EMAIL,
+  SERVICE_ACCOUNT_PRIVATE_KEY,
+} = process.env;
 
 let apiInitialized = false;
 
@@ -33,22 +52,19 @@ function initializeFirebase() {
   if (admin.apps.length < 1) {
     admin.initializeApp({
       credential: admin.credential.cert({
-        projectId: process.env.SERVICE_ACCOUNT_PROJECT_ID,
-        clientEmail: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
-        privateKey: process.env.SERVICE_ACCOUNT_PRIVATE_KEY.replace(
-          /\\n/g,
-          "\n"
-        ),
+        projectId: SERVICE_ACCOUNT_PROJECT_ID,
+        clientEmail: SERVICE_ACCOUNT_CLIENT_EMAIL,
+        privateKey: SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, "\n"),
       }),
     });
 
     console.log(
       "DEBUG - initialized firebase -",
-      process.env.SERVICE_ACCOUNT_PROJECT_ID,
-      process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
+      SERVICE_ACCOUNT_PROJECT_ID,
+      SERVICE_ACCOUNT_CLIENT_EMAIL,
       "\n"
     );
   }
 }
 
-module.exports = initializeApi;
+export default initializeApi;
