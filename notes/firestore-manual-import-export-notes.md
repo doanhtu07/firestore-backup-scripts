@@ -2,8 +2,6 @@
 
 Together with using managed backup, we can export and import data from Firestore manually.
 
-NOTE: All the scripts should be compiled with `tsc` first
-
 ## Sources
 
 - https://firebase.google.com/docs/firestore/manage-data/export-import
