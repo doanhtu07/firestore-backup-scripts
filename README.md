@@ -9,4 +9,4 @@ There are a couple of ways I experiment around for backing up Firestore.
 ## Run my scripts
 
 1. Compile with `tsc`
-2. Run a script in folder `dist` while you are at root of project so `dotenv` can pick up `.env`
+2. Run a script in folder `dist`
