@@ -9,7 +9,7 @@ NOTE: All the scripts should be compiled with `tsc` first
 - https://firebase.google.com/docs/firestore/manage-data/export-import
 - https://firebase.google.com/docs/firestore/solutions/schedule-export
 
-## Set up service account with GCloud
+## Set up service account with gcloud
 
 ```
 gcloud auth activate-service-account --key-file=/path/to/your-service-account-key.json

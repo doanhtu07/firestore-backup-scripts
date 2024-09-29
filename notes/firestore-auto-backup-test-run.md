@@ -10,7 +10,7 @@ gcloud projects list
 gcloud projects get-iam-policy [PROJECT_ID]
 ```
 
-PROJECT_ID = hackutd-2024-prod
+- PROJECT_ID = hackutd-2024-prod
 
 3. List database ids
 
@@ -25,7 +25,7 @@ gcloud firestore backups schedules list \
 --database='DATABASE_ID'
 ```
 
-DATABASE_ID = '(default)'
+- DATABASE_ID = '(default)'
 
 5. Create a backup schedule
 
@@ -36,8 +36,8 @@ gcloud firestore backups schedules create \
 --retention=RETENTION_PERIOD
 ```
 
-DATABASE_ID = '(default)'
-RETENTION_PERIOD = 1w
+- DATABASE_ID = '(default)'
+- RETENTION_PERIOD = 1w
 
 6. List backup schedules
 
@@ -46,7 +46,7 @@ gcloud firestore backups schedules list \
 --database='DATABASE_ID'
 ```
 
-DATABASE_ID = '(default)'
+- DATABASE_ID = '(default)'
 
 7. List backups
 
