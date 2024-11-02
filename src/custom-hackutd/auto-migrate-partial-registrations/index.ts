@@ -2,6 +2,7 @@ import admin from "firebase-admin";
 import initializeApi from "../../init-admin";
 import { PartialRegistration, Registration } from "../types";
 import { convertToRegistration } from "./convert-to-registration";
+import { isValidPartialRegistration } from "./is-valid-partial-registration";
 
 initializeApi();
 
@@ -13,6 +14,8 @@ async function autoMigratePartialRegistrations() {
     const targetCollectionName = "registrations";
 
     await firestore.runTransaction(async (transaction) => {
+      // 1. Get all partial registrations
+
       const allPartialSnapshots = await firestore
         .collection(srcCollectionName)
         .get();
@@ -23,10 +26,16 @@ async function autoMigratePartialRegistrations() {
         partialRegistrations.push(doc.data() as PartialRegistration);
       });
 
-      const newRegistrations: Registration[] = partialRegistrations.map(
-        (pr) => {
-          return convertToRegistration(pr);
-        },
+      // 2. Filter out invalid partial registrations
+
+      const filteredPartialRegistrations = partialRegistrations.filter((pr) =>
+        isValidPartialRegistration(pr),
+      );
+
+      // 3. Create new registrations
+
+      const newRegistrations: Registration[] = filteredPartialRegistrations.map(
+        (val) => convertToRegistration(val),
       );
 
       // https://googleapis.dev/nodejs/firestore/latest/CollectionReference.html#doc
@@ -47,6 +56,7 @@ async function autoMigratePartialRegistrations() {
     );
   } catch (error) {
     console.error(error);
+
     throw new Error(
       "Transaction to auto migrate partial registrations failed!",
     );

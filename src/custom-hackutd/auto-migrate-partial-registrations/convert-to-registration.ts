@@ -48,10 +48,10 @@ export const convertToRegistration = (
 
   result.disclaimer = srcData.disclaimer;
   result.codeOfConduct = srcData.codeOfConduct;
-  result.currentRegistrationPage = srcData.currentRegistrationPage;
-  result.majorManual = srcData.majorManual;
-  result.universityManual = srcData.universityManual;
-  result.heardFromManual = srcData.heardFromManual;
+  // result.currentRegistrationPage = srcData.currentRegistrationPage;
+  // result.majorManual = srcData.majorManual;
+  // result.universityManual = srcData.universityManual;
+  // result.heardFromManual = srcData.heardFromManual;
 
   return result as Registration;
 };
